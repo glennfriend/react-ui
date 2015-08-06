@@ -31,19 +31,18 @@
                 return {
                     pageLimit: {
                         page: 1,
-                        rowCount: 266,
+                        rowCount: 120,
                     },
                 };
             },
 
             render() {
                 return (
-
                     <ReactBootstrap.Row className='show-grid'>
                         <ReactBootstrap.Col md={2}>
 
-                            <ReactBootstrap.Panel header='Panel heading without title'>
-                                Panel content
+                            <ReactBootstrap.Panel header='Pagination'>
+                                Demo
                             </ReactBootstrap.Panel>
 
                         </ReactBootstrap.Col>
@@ -55,16 +54,12 @@
                                 <p>example</p>
                             </section>
 
-                            <ReactBootstrap.Button bsStyle='primary'>
-                                Default
-                            </ReactBootstrap.Button>
-                            <br />
-                            <Sg.Pagination data={this.state.pageLimit} handlePage={this.page} />
-                            <br />
+                            <nav>
+                                <Sg.Pagination data={this.state.pageLimit} handlePage={this.page} />
+                            </nav>
 
                         </ReactBootstrap.Col>
                     </ReactBootstrap.Row>
-
                 );
             },
         });

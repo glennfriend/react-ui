@@ -1,10 +1,20 @@
 'use strict';
-
 var Sg = Sg || {};
+
+/**
+ *  Pagination
+ *
+ *      params:
+ *          pageLimit: { page: 1, rowCount: 120 }
+ *
+ *      code:
+ *          <Sg.Pagination data={this.state.pageLimit} handlePage={this.page} />
+ *
+ */
 Sg.Pagination = React.createClass({
 
     propTypes: {
-        handlePage: React.PropTypes.func
+        handlePage: React.PropTypes.func,
     },
 
     /**
@@ -30,12 +40,18 @@ Sg.Pagination = React.createClass({
         return def;
     },
 
+    /**
+     *  總共幾頁
+     */
     getTotalPage() {
         return Math.round(this.state.rowCount / this.state.pageShowCount);
     },
 
     /**
      *  取得要顯示哪幾頁 page
+     *      example:
+     *          [5,6,7,8,9]
+     *
      *  @return array
      */
     getShowPages() {
@@ -96,7 +112,7 @@ Sg.Pagination = React.createClass({
             <ul className="pagination">
                 {this.renderPrev()}
                 {this.renderNext()}
-                {this.getShowPages().map(this.renderPage, this)}
+                {this.getShowPages().map(this.renderPage)}
                 {this.renderFirst()}
                 {this.renderLast()}
             </ul>
@@ -107,9 +123,15 @@ Sg.Pagination = React.createClass({
         if ( !this.state.prev ) {
             return;
         }
-        let cls = this.state.page === 1 ? 'disabled' : '';
+        if ( this.state.page === 1 ) {
+            return (
+                <li className="disabled">
+                    <a href="#">&laquo; Prev</a>
+                </li>
+            );
+        }
         return (
-            <li className={cls} onClick={this.handlePage.bind(this, this.state.page-1)}>
+            <li onClick={this.handlePage.bind(this, this.state.page-1)}>
                 <a href="#">&laquo; Prev</a>
             </li>
         );
@@ -119,9 +141,15 @@ Sg.Pagination = React.createClass({
         if ( !this.state.next ) {
             return;
         }
-        let cls = this.state.page === this.getTotalPage() ? 'disabled' : '';
+        if ( this.state.page === this.getTotalPage() ) {
+            return (
+                <li className="disabled">
+                    <a href="#">Next &raquo;</a>
+                </li>
+            );
+        }
         return (
-            <li className={cls} onClick={this.handlePage.bind(this, this.state.page+1)}>
+            <li onClick={this.handlePage.bind(this, this.state.page+1)}>
                 <a href="#">Next &raquo;</a>
             </li>
         );
@@ -146,9 +174,6 @@ Sg.Pagination = React.createClass({
             return;
         }
         let total = this.getTotalPage();
-        //if ( this.state.page === total ) {
-        //    return;
-        //}
         if ( -1 !== this.getShowPages().indexOf(total) ) {
             return;
         }
@@ -160,9 +185,15 @@ Sg.Pagination = React.createClass({
     },
 
     renderPage: function(n, i) {
-        let cls = this.state.page === n ? 'active' : '';
+        if ( this.state.page === n ) {
+            return (
+                <li key={i} className="active">
+                    <a href='#'>{n}</a>
+                </li>
+            );            
+        }
         return (
-            <li key={i} className={cls} onClick={this.handlePage.bind(this, n)}>
+            <li key={i} onClick={this.handlePage.bind(this, n)}>
                 <a href='#'>{n}</a>
             </li>
         );
