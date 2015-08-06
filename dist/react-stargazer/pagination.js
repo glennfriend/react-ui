@@ -12,16 +12,26 @@ var Sg = Sg || {};
  *
  */
 Sg.Pagination = React.createClass({
-
     propTypes: {
         handlePage: React.PropTypes.func,
     },
 
-    /**
-     *  第一次將資料傳進來的時候
-     *  把資料結合元件的預設值
-     */
     getInitialState() {
+        return this.getDefault( this.props.data );
+    },
+
+    componentWillReceiveProps(nextProps) {
+        this.state = this.getDefault( nextProps.data );
+    },
+
+    // --------------------------------------------------------------------------------
+    // helper
+    // --------------------------------------------------------------------------------
+    /**
+     *  取得預設值
+     *  如果參數中有相同的 key, 則覆蓋該值
+     */
+    getDefault(params) {
         let def = {
             page: 1,
             pageShowCount: 10,  // 每頁顯示幾筆資料 (用來計算總共有多少page)
@@ -32,9 +42,10 @@ Sg.Pagination = React.createClass({
             last: true,
             gap: 5,             // 顯示5個  << < 1 2 3 4 5 > >>
         };
+
         for (let key in def) {
-            if( typeof(this.props.data[key])!=="undefined" ) {
-                def[key] = this.props.data[key];
+            if( typeof(params[key])!=="undefined" ) {
+                def[key] = params[key];
             }
         }
         return def;
@@ -99,7 +110,9 @@ Sg.Pagination = React.createClass({
         }
 
         // custom event
-        if (this.props.handlePage) this.props.handlePage(p);
+        if (this.props.handlePage) {
+            this.props.handlePage(p);
+        }
 
         this.setState({page: p});
     },
