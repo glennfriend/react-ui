@@ -63,8 +63,6 @@ Sg.Table = React.createClass({
     // render
     // --------------------------------------------------------------------------------
     render() {
-        // TODO: 很奇怪的部份, 請查清楚
-        this.state = this.getInitialState();
 
         if( Object.prototype.toString.call( this.state.heads ) !== '[object Array]' ) {
             return;
