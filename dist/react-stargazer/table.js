@@ -13,11 +13,22 @@ var Sg = Sg || {};
  */
 Sg.Table = React.createClass({
 
-    /**
-     *  第一次將資料傳進來的時候
-     *  把資料結合元件的預設值
-     */
     getInitialState() {
+        return this.getDefault( this.props.data );
+    },
+
+    componentWillReceiveProps(nextProps) {
+        this.state = this.getDefault( nextProps.data );
+    },
+
+    // --------------------------------------------------------------------------------
+    // helper
+    // --------------------------------------------------------------------------------
+    /**
+     *  取得預設值
+     *  如果參數中有相同的 key, 則覆蓋該值
+     */
+    getDefault(params) {
         let def = {
             heads: [],
             rows: [],
@@ -25,9 +36,10 @@ Sg.Table = React.createClass({
             // checkbox: false,
             // multiple: false,
         };
+
         for (let key in def) {
-            if( typeof(this.props.data[key])!=="undefined" ) {
-                def[key] = this.props.data[key];
+            if( typeof(params[key])!=="undefined" ) {
+                def[key] = params[key];
             }
         }
         return def;
@@ -36,11 +48,24 @@ Sg.Table = React.createClass({
     // --------------------------------------------------------------------------------
     // event
     // --------------------------------------------------------------------------------
+    /**
+     *  提供給外界處理 row
+     */
+    handleRow: function(row) {
+        // custom event
+        if (this.props.handleRow) {
+            row = this.props.handleRow(row);
+        }
+        return row;
+    },
 
     // --------------------------------------------------------------------------------
     // render
     // --------------------------------------------------------------------------------
     render() {
+        // TODO: 很奇怪的部份, 請查清楚
+        this.state = this.getInitialState();
+
         if( Object.prototype.toString.call( this.state.heads ) !== '[object Array]' ) {
             return;
         }
@@ -60,6 +85,7 @@ Sg.Table = React.createClass({
     },
 
     renderRow: function(row, i) {
+        row = this.handleRow(row);
         let data = this._sortRowByHeadToArray(row, this.state.heads);
         return (
             <tr key={i}>

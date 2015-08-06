@@ -18,31 +18,50 @@
             // --------------------------------------------------------------------------------
             // event
             // --------------------------------------------------------------------------------
-            page(n) {
-                console.log('click page '+n);
+            getRows() {
+                return {
+                    heads: ['name','price','stocked'],
+                    rows: [
+                            { name: "Football"    ,price: 49.99,  stocked: true,                      },
+                            { name: "Baseball"    ,price: 9.99,   stocked: true,                      },
+                            {                      price: 29.99,  stocked: false, name: "Basketball"  },
+                            { name: "iPod Touch"  ,price: 99.99,  stocked: true,                      }
+                    ],
+                }
+            },
+
+            getRows2() {
+                // 假設是 ajax 的過程
+                var table = this.state.table;
+                table.rows = [
+                    { name: "iPhone 5", price: 399.99, stocked: false   },
+                    { name: "Nexus 7",  price: 199.99, stocked: true    }
+                ];
+                this.setState({"table": table});
+            },
+
+            rowChange(row) {
+                if ( row.stocked === true ) {
+                    row.stocked = 'TRUE';
+                }
+                return row;
             },
 
             // --------------------------------------------------------------------------------
             getInitialState() {
                 return {
-                    table: {
-                        heads: ['category','price','stocked','name'],
-                        rows: [
-                                {category: "Sporting Goods1", price: "$49.99", stocked: true, name: "Football"},
-                                {                             price: "$9.99", stocked: true, name: "Baseball", category: "Sporting Goods2"},
-                                {category: "Sporting Goods3", price: "$29.99", stocked: false, name: "Basketball"},
-                                {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
-                                {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
-                                {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
-                        ],
-                    }
+                    table: this.getRows(),
                 };
             },
 
             render() {
                 return (
                     <div>
-                        <Sg.Table data={this.state.table} />
+                        <Sg.Table data={this.state.table} handleRow={this.rowChange} />
+
+                        <ReactBootstrap.Button bsStyle='primary' onClick={this.getRows2}>
+                            get rows 2
+                        </ReactBootstrap.Button>
                     </div>
                 );
             },
