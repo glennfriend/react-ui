@@ -8,7 +8,6 @@
   <body>
 
     <?php include '_menu.htm'; ?>
-
     <section style="margin:20px;">
         <div id="content"></div>
     </section>

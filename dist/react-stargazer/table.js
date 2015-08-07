@@ -19,22 +19,40 @@ Sg.Table = React.createClass({
 
     componentWillReceiveProps(nextProps) {
         this.state = this.getDefault( nextProps.data );
+        this.resetOther();
     },
 
     // --------------------------------------------------------------------------------
     // helper
     // --------------------------------------------------------------------------------
+
+    getChooseId() {
+        return this.state.id + '-choose';
+    },
+
+    resetOther() {
+        // clear choose
+        var id = "#" + this.getChooseId();
+        if ( $(id).length > 0 ) {
+            $(id).val('');
+        }
+
+        //
+    },
+
     /**
      *  取得預設值
      *  如果參數中有相同的 key, 則覆蓋該值
      */
     getDefault(params) {
         let def = {
+            id: '',         // table id="?"
+            headKey: '',    // by heads, 一般來說會是放置資料的主鍵 'id'
             heads: [],
+            // sort: [],    // by heads
             rows: [],
-            // sort: [],    // allow by heads
-            // checkbox: false,
-            // multiple: false,
+            choose: false,
+            chooseMultiple: true,
         };
 
         for (let key in def) {
@@ -43,6 +61,71 @@ Sg.Table = React.createClass({
             }
         }
         return def;
+    },
+
+    validate() {
+        if ( !this.state.id ) {
+            console.log('table error: element id not found!');
+            return false;
+        }
+        if ( !this.state.headKey ) {
+            console.log('table error: element headKey not found!');
+            return false;
+        }
+        if( Object.prototype.toString.call( this.state.heads ) !== '[object Array]' ) {
+            return false;
+        }
+        if( Object.prototype.toString.call( this.state.rows ) !== '[object Array]' ) {
+            return false;
+        }
+        return true;
+    },
+
+    // --------------------------------------------------------------------------------
+    // manager row click
+    // --------------------------------------------------------------------------------
+    rowClick: function(index) {
+        let row = this.state.rows[index];
+        let id = "#" + this.getChooseId();
+        let value = $(id).val();
+        let data = row[this.state.headKey].toString();
+
+        if ( !this.state.chooseMultiple ) {
+            $(id).val(data);
+            return;
+        }
+
+        if ( !value ) {
+            $(id).val(data);
+        }
+        else {
+            let items = value.split(',');
+            let find = items.indexOf(data);
+            if ( -1 == find ) {
+                items.push(data);
+            }
+            else {
+                items.splice(find, 1);
+            }
+            value = items.join(",");
+            $(id).val(value);
+        }
+    },
+
+    hasRowActive: function(index) {
+        let id = "#" + this.getChooseId();
+        if ( $(id).length <= 0 ) {
+            return false;
+        }
+        let row = this.state.rows[index];
+        let key = row[this.state.headKey].toString();
+        let value = $(id).val();
+        let items = value.split(',');
+
+        if ( -1 == items.indexOf(key) ) {
+            return false;
+        }
+        return true;
     },
 
     // --------------------------------------------------------------------------------
@@ -59,34 +142,52 @@ Sg.Table = React.createClass({
         return row;
     },
 
+    /**
+     *  管理已點擊的 row 資訊
+     */
+    handleRowClick: function(index) {
+        if ( !this.state.choose ) {
+            return;
+        }
+        this.rowClick(index);
+        this.setState({});
+    },
+
     // --------------------------------------------------------------------------------
     // render
     // --------------------------------------------------------------------------------
     render() {
+        if ( !this.validate() ) {
+            return false;
+        }
+        let chooseId  = this.getChooseId();
+        let id        = this.state.id ? this.state.id : '';
+        let showClass = this.state.choose ? '' : 'table-striped';
+        showClass     += ' table table-condensed table-bordered';
 
-        if( Object.prototype.toString.call( this.state.heads ) !== '[object Array]' ) {
-            return;
-        }
-        if( Object.prototype.toString.call( this.state.rows ) !== '[object Array]' ) {
-            return;
-        }
         return (
-            <table className="table table-striped table-condensed table-bordered">
-                <thead>
-                    {this.state.heads.map(this.renderHead)}
-                </thead>
-                <tbody>
-                    {this.state.rows.map(this.renderRow)}
-                </tbody>
-            </table>
+            <div>
+                <p>
+                    <input type="text" id={chooseId} name={chooseId} />
+                </p>
+                <table id={id} className={showClass}>
+                    <thead>
+                        {this.state.heads.map(this.renderHead)}
+                    </thead>
+                    <tbody>
+                        {this.state.rows.map(this.renderRow)}
+                    </tbody>
+                </table>
+            </div>
         );
     },
 
     renderRow: function(row, i) {
         row = this.handleRow(row);
         let data = this._sortRowByHeadToArray(row, this.state.heads);
+        let color = this.hasRowActive(i) ? 'info' : '';
         return (
-            <tr key={i}>
+            <tr key={i} className={color} onClick={this.handleRowClick.bind(this,i)}>
                 {data.map(this.renderCell)}
             </tr>
         );
@@ -131,27 +232,5 @@ Sg.Table = React.createClass({
         }
         return data;
     },
-
-    /**
-     *  將 object 轉換為 二維陣列
-     *
-     *      {name:'ken', age:20}
-     *      ->
-     *          [
-     *              ['name', 'ken']
-     *              ['age', 20]
-     *          ]
-     *
-     */
-    /*
-    _objectToFlatArray: function( obj ) {
-        let arr = [];
-        let index = 0;
-        for ( let key in obj ) {
-            arr[index++] = [key, obj[key]];
-        }
-        return arr;
-    },
-    */
 
 });
