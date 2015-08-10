@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
-    <title>Example</title>
-    <?php include '_head.htm'; ?>
-  </head>
-  <body>
 
-    <?php include '_menu.htm'; ?>
-    <section style="margin:20px;">
-        <div id="content"></div>
-    </section>
+    <div id="content"></div>
 
-    <script type="text/jsx" src="dist/react-stargazer/pagination.js"></script>
+    <script type="text/jsx" src="src/pagination/pagination.js"></script>
     <script type="text/jsx">
         var Main = React.createClass({
             // --------------------------------------------------------------------------------
@@ -75,7 +64,7 @@
                             </section>
 
                             <nav>
-                                <Sg.Pagination data={this.state.pageLimit} handlePage={this.page} />
+                                <Pagination data={this.state.pageLimit} handlePage={this.page} />
                             </nav>
 
                             <p>
@@ -97,5 +86,3 @@
         React.render(<Main />, document.getElementById('content'));
     </script>
 
-  </body>
-</html>

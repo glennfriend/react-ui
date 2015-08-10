@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
-    <title>Example</title>
-    <?php include '_head.htm'; ?>
-  </head>
-  <body>
 
-    <?php include '_menu.htm'; ?>
-    <section style="margin:20px;">
-        ChooseTable
-        <div id="content"></div>
-    </section>
+    <div id="content"></div>
 
-    <script type="text/jsx" src="dist/react-stargazer/table.js"></script>
+    <script type="text/jsx" src="src/chooseTable/chooseTable.js"></script>
     <script type="text/jsx">
         var Main = React.createClass({
             // --------------------------------------------------------------------------------
@@ -71,7 +59,7 @@
             render() {
                 return (
                     <div>
-                        <Sg.Table
+                        <ChooseTable
                             data={this.state.table}
                             handleRow={this.rowChange}
                         />
@@ -86,6 +74,3 @@
         React.render(<Main />, document.getElementById('content'));
     </script>
 
-
-  </body>
-</html>

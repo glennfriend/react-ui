@@ -1,5 +1,4 @@
 'use strict';
-var Sg = Sg || {};
 
 /**
  *  Pagination
@@ -8,10 +7,10 @@ var Sg = Sg || {};
  *          pageLimit: { page: 1, rowCount: 120 }
  *
  *      code:
- *          <Sg.Pagination data={this.state.pageLimit} handlePage={this.page} />
+ *          <Pagination data={this.state.pageLimit} handlePage={this.page} />
  *
  */
-Sg.Pagination = React.createClass({
+let Pagination = React.createClass({
     propTypes: {
         handlePage: React.PropTypes.func,
     },
@@ -203,7 +202,7 @@ Sg.Pagination = React.createClass({
                 <li key={i} className="active">
                     <a href='#'>{n}</a>
                 </li>
-            );            
+            );
         }
         return (
             <li key={i} onClick={this.handlePage.bind(this, n)}>

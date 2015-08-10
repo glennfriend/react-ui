@@ -1,5 +1,4 @@
 'use strict';
-var Sg = Sg || {};
 
 /**
  *  Table
@@ -8,10 +7,10 @@ var Sg = Sg || {};
  *          table: { heads: ['name','age'], rows: [] }
  *
  *      code:
- *          <Sg.Table data={this.state.table} />
+ *          <ChooseTable data={this.state.table} />
  *
  */
-Sg.Table = React.createClass({
+let ChooseTable = React.createClass({
 
     getInitialState() {
         return this.getDefault( this.props.data );
