@@ -20,12 +20,13 @@
                     <ul class="nav navbar-nav">
                         <?php
                             echo '<li><a href="index.php">Home</a></li>';
-                            foreach ( getAllFolderName(getPathName()) as $name ) {
-                                if ( 'home'===$name ) {
+                            foreach (getAllFolder(getPathName()) as $name) {
+                                $name = basename($name);
+                                if ('home'===$name) {
                                     continue;
                                 }
                                 echo '<li><a href="?page='. $name .'">'. $name .'</a></li>';
-                            }                            
+                            }
                         ?>
                     </ul>
                 </div>
@@ -35,14 +36,11 @@
 
     <section style="margin:20px;">
         <?php
-            $page = isset($_GET['page']) ? trim($_GET['page']) : 'home';
-            $page = getPathName() .'/'. $page; 
-
-            $folders = glob( getPathName().'/*', GLOB_ONLYDIR );
-            foreach ( $folders as $folder ) {
-                if ( $folder == $page ) {
+            $page = getPathName() .'/'. getPage();
+            foreach (getAllFolder(getPathName()) as $folder) {
+                if ($folder == $page) {
                     $file = $folder.'/main.php';
-                    if ( file_exists($file)) {
+                    if (file_exists($file)) {
                         include $file;
                         break;
                     }
@@ -56,16 +54,21 @@
 </html>
 <?php
 
+    function getPage($defaultValue='home')
+    {
+        return isset($_GET['page']) ? trim($_GET['page']) : $defaultValue;
+    }
+
     function getPathName()
     {
         return 'src';
     }
 
-    function getAllFolderName( $pathName )
+    function getAllFolder($pathName)
     {
         $folders = [];
-        foreach ( glob( $pathName.'/*', GLOB_ONLYDIR ) as $folder ) {
-            $folders[] = basename($folder);
+        foreach (glob($pathName.'/*', GLOB_ONLYDIR) as $folder) {
+            $folders[] = $folder;
         }
         return $folders;
     }
