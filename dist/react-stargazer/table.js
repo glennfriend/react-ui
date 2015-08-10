@@ -26,8 +26,24 @@ Sg.Table = React.createClass({
     // helper
     // --------------------------------------------------------------------------------
 
+    /**
+     *  每次 "新" 產生的元件, unique id 將會不同
+     */
+    uniqueId: null,
+    getUniqueId(prefix) {
+        if ( !this.uniqueId ) {
+            let s4 = function() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            }
+            this.uniqueId = s4()+s4()+'-'+s4()+s4();
+        }
+        return prefix + this.uniqueId;
+    },
+
     getChooseId() {
-        return this.state.id + '-choose';
+        return this.getUniqueId('table-choose-');
     },
 
     resetOther() {
@@ -51,7 +67,7 @@ Sg.Table = React.createClass({
             heads: [],
             // sort: [],    // by heads
             rows: [],
-            choose: false,
+            choose: true,
             chooseMultiple: true,
         };
 
@@ -64,10 +80,6 @@ Sg.Table = React.createClass({
     },
 
     validate() {
-        if ( !this.state.id ) {
-            console.log('table error: element id not found!');
-            return false;
-        }
         if ( !this.state.headKey ) {
             console.log('table error: element headKey not found!');
             return false;
@@ -161,16 +173,14 @@ Sg.Table = React.createClass({
             return false;
         }
         let chooseId  = this.getChooseId();
-        let id        = this.state.id ? this.state.id : '';
         let showClass = this.state.choose ? '' : 'table-striped';
         showClass     += ' table table-condensed table-bordered';
-
         return (
-            <div>
+            <span>
                 <p>
                     <input type="text" id={chooseId} name={chooseId} />
                 </p>
-                <table id={id} className={showClass}>
+                <table className={showClass}>
                     <thead>
                         {this.state.heads.map(this.renderHead)}
                     </thead>
@@ -178,7 +188,7 @@ Sg.Table = React.createClass({
                         {this.state.rows.map(this.renderRow)}
                     </tbody>
                 </table>
-            </div>
+            </span>
         );
     },
 

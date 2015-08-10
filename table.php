@@ -9,6 +9,7 @@
 
     <?php include '_menu.htm'; ?>
     <section style="margin:20px;">
+        ChooseTable
         <div id="content"></div>
     </section>
 
@@ -20,7 +21,6 @@
             // --------------------------------------------------------------------------------
             getRows() {
                 return {
-                    id: 'main-table',
                     headKey: 'id',
                     heads: ['name','price','stocked'],
                     rows: [
@@ -71,18 +71,21 @@
             render() {
                 return (
                     <div>
-                        <Sg.Table data={this.state.table} handleRow={this.rowChange} />
+                        <Sg.Table
+                            data={this.state.table}
+                            handleRow={this.rowChange}
+                        />
 
-                        <br />
-                        <ReactBootstrap.Button bsStyle='primary' onClick={this.getRows2}>
+                        <button className="btn btn-primary" onClick={this.getRows2}>
                             get rows 2
-                        </ReactBootstrap.Button>
+                        </button>
                     </div>
                 );
             },
         });
         React.render(<Main />, document.getElementById('content'));
     </script>
+
 
   </body>
 </html>
