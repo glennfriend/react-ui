@@ -19,6 +19,9 @@ let Pagination = React.createClass({
         return this.getDefault( this.props.data );
     },
 
+    /**
+     *  當一個掛載的組件接收到新的 props 的時候被調用
+     */
     componentWillReceiveProps(nextProps) {
         this.state = this.getDefault( nextProps.data );
     },
