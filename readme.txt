@@ -1,12 +1,21 @@
-react-bootstrap
+React UI
 
-    compile
-        https://github.com/react-bootstrap/react-bootstrap
+編譯 js
+    jsx to js
+    ES6 to ES5
+    live reload
 
+install by package.json
+    npm install -g gulp
+    npm i
 
-React document
+install by your-hand
+    @see package.json
+    npm install -g gulp
+    npm install --save-dev gulp-babel
 
-    組件生命周期
-        http://reactjs.cn/react/docs/working-with-the-browser.html
+install google chrome extend
+    https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 
-
+run
+    gulp
