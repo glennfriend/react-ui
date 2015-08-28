@@ -19,23 +19,17 @@
         </div>
     </div>
 
-
-    <script type="text/jsx" src="src/inputDate/inputDate.js"></script>
     <script type="text/jsx">
         var Main = React.createClass({
-            // --------------------------------------------------------------------------------
-            // event
-            // --------------------------------------------------------------------------------
-
-            // --------------------------------------------------------------------------------
             render() {
                 return (
-                    <span>
-                        <InputDate name="happyDate" />
-                    </span>
+                    <div>
+                        <div>
+                            <InputDate name="happyDate" />
+                        </div>
+                    </div>
                 );
             },
         });
         React.render(<Main />, document.getElementById('content'));
     </script>
-
