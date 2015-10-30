@@ -85,17 +85,17 @@ var InputDate = React.createClass({
     // helper
     // --------------------------------------------------------------------------------
     getElementWidth: function getElementWidth() {
-        var dom = React.findDOMNode(this.refs.container);
+        var dom = this.refs.container;
         return dom.offsetWidth;
     },
 
     setElementValue: function setElementValue(value) {
-        var dom = React.findDOMNode(this.refs.container);
+        var dom = this.refs.container;
         dom.value = value;
     },
 
     getElementValue: function getElementValue() {
-        var dom = React.findDOMNode(this.refs.container);
+        var dom = this.refs.container;
         return dom.value;
     },
 
@@ -157,8 +157,8 @@ var InputDate = React.createClass({
 
         // 輸入 ↓ 的時候, 要跳到 ComboBox, 並且預選第一個項目
         if (event.keyCode == 40 && this.state.combobox.options.length > 0) {
-            React.findDOMNode(this.refs.box).focus();
-            React.findDOMNode(this.refs.box).selectedIndex = 0;
+            this.refs.box.focus();
+            this.refs.box.selectedIndex = 0;
         }
         // 輸入 8 個數字時, 直接完成 yyyy-mm-dd 的格式設定
         else if (event.target.value.length == 8 && -1 === event.target.value.indexOf('-')) {
@@ -923,11 +923,15 @@ var TableChoose = React.createClass({
                     'thead',
                     null,
                     React.createElement(
-                        'th',
-                        { style: style },
-                        React.createElement('i', { className: icon, onClick: this.handleCheckAll })
-                    ),
-                    this.props.heads.map(this.renderHead)
+                        'tr',
+                        null,
+                        React.createElement(
+                            'th',
+                            { style: style },
+                            React.createElement('i', { className: icon, onClick: this.handleCheckAll })
+                        ),
+                        this.props.heads.map(this.renderHead)
+                    )
                 ),
                 React.createElement(
                     'tbody',
@@ -1058,7 +1062,11 @@ var TableShow = React.createClass({
                 React.createElement(
                     'thead',
                     null,
-                    this.props.heads.map(this.renderHead)
+                    React.createElement(
+                        'tr',
+                        null,
+                        this.props.heads.map(this.renderHead)
+                    )
                 ),
                 React.createElement(
                     'tbody',
