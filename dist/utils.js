@@ -20,6 +20,20 @@
         },
 
         /**
+         *  格式化 Date() 物件成為 yyyy-mm-dd 格式
+         *
+         *  @param Date()
+         *  @return string
+         */
+        getDate: function( date )
+        {
+            let yyyy = date.getFullYear().toString();
+            let mm   = (date.getMonth()+1).toString();
+            let dd   = date.getDate().toString();
+            return   yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
+        },
+
+        /**
          *  each
          *      - 可以代入 object & array
          *      - 在 callback 中使用 "return false" 將離開整個迴圈
