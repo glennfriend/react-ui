@@ -25,7 +25,7 @@
                 return (
                     <div>
                         <div>
-                            <InputDate name="happyDate" />
+                            <sgui.InputDate name="happyDate" />
                         </div>
                     </div>
                 );

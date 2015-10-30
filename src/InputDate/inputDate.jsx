@@ -9,7 +9,8 @@
  *          <InputDate name="birthDate" />
  *
  */
-let InputDate = React.createClass({
+let sgui = sgui || {};
+sgui.InputDate = React.createClass({
 
     // TODO: 請分離 state & props
     getInitialState() {
@@ -100,8 +101,9 @@ let InputDate = React.createClass({
 
         // 輸入 ↓ 的時候, 要跳到 ComboBox, 並且預選第一個項目
         if ( event.keyCode == 40 && this.state.combobox.options.length > 0 ) {
-            this.refs.box.focus();
-            this.refs.box.selectedIndex = 0;
+            ReactDOM.findDOMNode(this.refs.box).focus();
+            ReactDOM.findDOMNode(this.refs.box).selectedIndex = 0;
+
         }
         // 輸入 8 個數字時, 直接完成 yyyy-mm-dd 的格式設定
         else if( event.target.value.length == 8 && -1 === event.target.value.indexOf('-') ) {

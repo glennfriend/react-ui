@@ -1,6 +1,7 @@
 'use strict';
 
-let TableChoose = React.createClass({
+let sgui = sgui || {};
+sgui.TableChoose = React.createClass({
 
     getInitialState() {
         return this.getDefault();
