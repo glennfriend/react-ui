@@ -95,6 +95,7 @@ gulp.task('developerDemo', function () {
  */
 gulp.task('toAssets', function () {
     gulp.src('./node_modules/react/dist/**')        .pipe(gulp.dest("build/assets/react/"));
+    gulp.src('./node_modules/react-dom/dist/**')    .pipe(gulp.dest("build/assets/react-dom/"));
     gulp.src('./node_modules/bootstrap/dist/**')    .pipe(gulp.dest("build/assets/bootstrap/"));
     gulp.src('./node_modules/font-awesome/css/**')  .pipe(gulp.dest("build/assets/font-awesome/css/"));
     gulp.src('./node_modules/font-awesome/fonts/**').pipe(gulp.dest("build/assets/font-awesome/fonts/"));
