@@ -299,7 +299,7 @@ sgui.TableChoose = React.createClass({
                 <td><input
                         type="checkbox"
                         key={i}
-                        onChange={this.handleCheck.bind(this,key)}
+                        onChange={this.handleCheck}
                         checked={this.getCheckbox(key)} /></td>
                 {data.map(this.renderCell)}
             </tr>
