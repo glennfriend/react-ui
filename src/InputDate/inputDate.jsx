@@ -130,13 +130,12 @@ sgui.InputDate = React.createClass({
         }
         // 輸入英文字 的時候
         else if( event.target.value.match(/[a-z]/ig) ) {
-            let date    = new Date();
-            let yyyy    = date.getFullYear().toString();
-            let mm      = (date.getMonth()+1).toString();
-            let dd      = date.getDate().toString();
-            let format  = yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
-            let options = [
-                [format, format + ' (today)'],
+
+            let today    = utils.getDate( new Date() );
+            let tomorrow = utils.getDate( new Date( new Date().getTime() + (86400 * 1000) ) );
+            let options  = [
+                [today,    today    + ' (today)'],
+                [tomorrow, tomorrow + ' (tomorrow)'],
             ];
 
             // update combobox options
@@ -187,7 +186,7 @@ sgui.InputDate = React.createClass({
         return (
             <span>
                 <input type="text" name={this.props.name} ref="container" onKeyUp={this.handleKey} maxLength="10" placeholder="yyyy-mm-dd" />
-                <ComboBox data={this.state.combobox} listenChoose={this.handleChoose} ref="box" />
+                <sgui.InputDateComboBox data={this.state.combobox} listenChoose={this.handleChoose} ref="box" />
             </span>
         );
     },
@@ -198,7 +197,7 @@ sgui.InputDate = React.createClass({
 
 
 
-let ComboBox = React.createClass({
+sgui.InputDateComboBox = React.createClass({
 
     getInitialState() {
         return this.getDefault( this.props.data );
@@ -263,7 +262,7 @@ let ComboBox = React.createClass({
     // render
     // --------------------------------------------------------------------------------
     render() {
-        let id          = this.getUniqueId('combobox-id-');
+        let id          = this.getUniqueId('inputdate-combobox-id-');
         let options     = this.state.options;
         let selectSize  = (options.length > this.state.maxOption ? this.state.maxOption : options.length);
 
