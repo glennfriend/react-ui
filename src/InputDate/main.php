@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <script type="text/jsx">
+    <script type="text/babel">
         var Main = React.createClass({
             render() {
                 return (
@@ -31,5 +31,5 @@
                 );
             },
         });
-        React.render(<Main />, document.getElementById('content'));
+        ReactDOM.render(<Main />, document.getElementById('content'));
     </script>

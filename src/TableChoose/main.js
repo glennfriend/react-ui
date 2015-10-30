@@ -62,6 +62,6 @@
             );
         },
     });
-    React.render(<Main />, document.getElementById('content'));
+    ReactDOM.render(<Main />, document.getElementById('content'));
 
 })();

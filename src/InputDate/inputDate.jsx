@@ -26,17 +26,17 @@ let InputDate = React.createClass({
     // helper
     // --------------------------------------------------------------------------------
     getElementWidth() {
-        let dom = React.findDOMNode(this.refs.container);
+        let dom = this.refs.container;
         return dom.offsetWidth;
     },
 
     setElementValue(value) {
-        let dom = React.findDOMNode(this.refs.container);
+        let dom = this.refs.container;
         dom.value = value;
     },
 
     getElementValue() {
-        let dom = React.findDOMNode(this.refs.container);
+        let dom = this.refs.container;
         return dom.value;
     },
 
@@ -100,8 +100,8 @@ let InputDate = React.createClass({
 
         // 輸入 ↓ 的時候, 要跳到 ComboBox, 並且預選第一個項目
         if ( event.keyCode == 40 && this.state.combobox.options.length > 0 ) {
-            React.findDOMNode(this.refs.box).focus();
-            React.findDOMNode(this.refs.box).selectedIndex = 0;
+            this.refs.box.focus();
+            this.refs.box.selectedIndex = 0;
         }
         // 輸入 8 個數字時, 直接完成 yyyy-mm-dd 的格式設定
         else if( event.target.value.length == 8 && -1 === event.target.value.indexOf('-') ) {

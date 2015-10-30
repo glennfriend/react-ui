@@ -274,10 +274,12 @@ let TableChoose = React.createClass({
             <span>
                 <table className="table table-condensed table-bordered table-hover">
                     <thead>
-                        <th style={style}>
-                            <i className={icon} onClick={this.handleCheckAll}></i>
-                        </th>
-                        {this.props.heads.map(this.renderHead)}
+                        <tr>
+                            <th style={style}>
+                                <i className={icon} onClick={this.handleCheckAll}></i>
+                            </th>
+                            {this.props.heads.map(this.renderHead)}
+                        </tr>
                     </thead>
                     <tbody>
                         {this.props.rows.map(this.renderRow)}
