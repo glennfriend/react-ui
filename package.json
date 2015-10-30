@@ -11,7 +11,8 @@
     "gulp-sourcemaps": "^1.5.2",
     "react-jsx-anywhere": "^0.*",
 
-    "react": "^0.*",
+    "react": "^0.14.*",
+    "react-dom": "^0.14.*",
     "jquery": "^2.1.*",
     "bootstrap": "^3.*",
     "font-awesome": "^4.*"

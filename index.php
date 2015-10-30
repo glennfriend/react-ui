@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="build/assets/font-awesome/css/font-awesome.css" />
 
     <script src="build/assets/react/react.js"></script>
-    <script src="build/assets/react/JSXTransformer.js"></script>
+    <script src="build/assets/react-dom/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script src="dist/utils.js"></script>
   </head>
   <body>
