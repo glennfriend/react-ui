@@ -67,7 +67,8 @@
  *          <InputDate name="birthDate" />
  *
  */
-var InputDate = React.createClass({
+var sgui = sgui || {};
+sgui.InputDate = React.createClass({
     displayName: 'InputDate',
 
     // TODO: 請分離 state & props
@@ -157,8 +158,8 @@ var InputDate = React.createClass({
 
         // 輸入 ↓ 的時候, 要跳到 ComboBox, 並且預選第一個項目
         if (event.keyCode == 40 && this.state.combobox.options.length > 0) {
-            this.refs.box.focus();
-            this.refs.box.selectedIndex = 0;
+            ReactDOM.findDOMNode(this.refs.box).focus();
+            ReactDOM.findDOMNode(this.refs.box).selectedIndex = 0;
         }
         // 輸入 8 個數字時, 直接完成 yyyy-mm-dd 的格式設定
         else if (event.target.value.length == 8 && -1 === event.target.value.indexOf('-')) {
@@ -337,7 +338,8 @@ var ComboBox = React.createClass({
 });
 'use strict';
 
-var Pagination = React.createClass({
+var sgui = sgui || {};
+sgui.Pagination = React.createClass({
     displayName: 'Pagination',
 
     propTypes: {
@@ -647,7 +649,8 @@ var Pagination = React.createClass({
 });
 'use strict';
 
-var TableChoose = React.createClass({
+var sgui = sgui || {};
+sgui.TableChoose = React.createClass({
     displayName: 'TableChoose',
 
     getInitialState: function getInitialState() {
@@ -955,7 +958,7 @@ var TableChoose = React.createClass({
                 React.createElement('input', {
                     type: 'checkbox',
                     key: i,
-                    onChange: this.handleCheck.bind(this, key),
+                    onChange: this.handleCheck,
                     checked: this.getCheckbox(key) })
             ),
             data.map(this.renderCell)
@@ -1008,7 +1011,8 @@ var TableChoose = React.createClass({
 });
 'use strict';
 
-var TableShow = React.createClass({
+var sgui = sgui || {};
+sgui.TableShow = React.createClass({
     displayName: 'TableShow',
 
     getDefaultProps: function getDefaultProps() {
