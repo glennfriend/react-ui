@@ -3,10 +3,13 @@
 let sgui = sgui || {};
 sgui.TableChoose = React.createClass({
 
-    getInitialState() {
-        return this.getDefault();
-    },
-
+    /**
+     *  只掛載第一次 (?)
+     *  順序
+     *      getDefaultProps()
+     *      getInitialState()
+     *      componentDidMount()
+     */
     getDefaultProps: function() {
         return {
             headKey: '',    // by heads, 一般來說會是放置資料的主鍵 example 'id' 'email'
@@ -15,24 +18,33 @@ sgui.TableChoose = React.createClass({
          // sort: [],       // by heads
         };
     },
-
     /**
-     *  當一個掛載的組件接收到新的 props 的時候被調用
+     *
      */
-    componentWillReceiveProps(nextProps) {
-        this.state = this.getDefault();
-        this.resetAllCheckbox();
+    getInitialState() {
+        return this.getDefault();
     },
-
     /**
-     *  在掛載結束之後馬上被調用。需要DOM節點的初始化操作應該放在這里
+     *  在掛載結束之後馬上被調用
+     *  DOM init in here
      */
     componentDidMount() {
         this.resetAllCheckbox();
     },
 
     /**
-     *  在更新發生之後調用
+     *  已掛載的組件接收到新的 props 被調用
+     */
+    componentWillReceiveProps(nextProps) {
+        if (nextProps) {
+            this.props = nextProps;
+        }
+        this.state = this.getDefault();
+        this.resetAllCheckbox();
+    },
+
+    /**
+     *  每次更新都調用
      */
     componentDidUpdate() {
     },
@@ -85,6 +97,17 @@ sgui.TableChoose = React.createClass({
             return;
         }
         this.props.listenCheck(key, value);
+    },
+
+    resetAllCheckbox()
+    {
+        let headKey = this.props.headKey;
+        let that = this;
+        let key;
+        utils.each( this.props.rows, function(index, obj) {
+            key = obj[headKey];
+            that.setCheckbox(key, false);
+        });
     },
 
     getAllCheckbox() {
@@ -204,17 +227,6 @@ sgui.TableChoose = React.createClass({
         return this.props.rows[index][this.props.headKey].toString();
     },
 
-    resetAllCheckbox()
-    {
-        let headKey = this.props.headKey;
-        let that = this;
-        let key;
-        utils.each( this.props.rows, function(index, obj) {
-            key = obj[headKey];
-            that.setCheckbox(key, false);
-        });
-    },
-
     /**
      *  引用者所需要的資訊
      */
@@ -299,7 +311,7 @@ sgui.TableChoose = React.createClass({
                 <td><input
                         type="checkbox"
                         key={i}
-                        onChange={this.handleCheck}
+                        onChange={this.handleCheck.bind(this,key)}
                         checked={this.getCheckbox(key)} /></td>
                 {data.map(this.renderCell)}
             </tr>
