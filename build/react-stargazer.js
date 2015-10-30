@@ -680,11 +680,14 @@ sgui.TableChoose = React.createClass({
     },
     // sort: [],       // by heads
     /**
-     *
+     *  取得該 component 預設值
      */
     getInitialState: function getInitialState() {
-        return this.getDefault();
+        return {
+            saveCheckbox: {}, // 儲存 checkbox item
+            saveControlCheckbox: 0 };
     },
+    // 控制 checkbox all 的功能, 並以圖示表示狀態
     /**
      *  在掛載結束之後馬上被調用
      *  DOM init in here
@@ -700,7 +703,8 @@ sgui.TableChoose = React.createClass({
         if (nextProps) {
             this.props = nextProps;
         }
-        //this.state = this.getInitialState();
+        this.state.saveCheckbox = this.getInitialState().saveCheckbox;
+        this.state.saveControlCheckbox = this.getInitialState().saveControlCheckbox;
         this.resetAllCheckbox();
     },
 
@@ -709,21 +713,6 @@ sgui.TableChoose = React.createClass({
      */
     componentDidUpdate: function componentDidUpdate() {},
 
-    // --------------------------------------------------------------------------------
-    // data
-    // --------------------------------------------------------------------------------
-    /**
-     *  取得預設值
-     */
-    getDefault: function getDefault() {
-        var i = i || 0;
-        return {
-            hi: i++,
-            saveCheckbox: {}, // 儲存 checkbox item
-            saveControlCheckbox: 0 };
-    },
-
-    // 控制 checkbox all 的功能
     // --------------------------------------------------------------------------------
     // item checkbox store
     // --------------------------------------------------------------------------------
@@ -761,6 +750,9 @@ sgui.TableChoose = React.createClass({
         this.props.listenCheck(key, value);
     },
 
+    /**
+     *  將所有 rows 的 checkbox 設定為 false
+     */
     resetAllCheckbox: function resetAllCheckbox() {
         var headKey = this.props.headKey;
         var that = this;

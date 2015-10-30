@@ -13,6 +13,7 @@
 
     "react": "^0.14.*",
     "react-dom": "^0.14.*",
+    "babel-core": "^5.8.*",
     "jquery": "^2.1.*",
     "bootstrap": "^3.*",
     "font-awesome": "^4.*"
