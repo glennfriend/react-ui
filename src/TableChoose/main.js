@@ -28,6 +28,7 @@
                 { id: 13, name: "iPhone 6",   price: 299,   age: 33 },
                 { id: 14, name: "iPhone 6s",  price: 399,   age: 80 },
             ];
+            // 全部設定進去, react 會自行處理效能
             this.setState({"table": this.state.table});
         },
 
