@@ -87,6 +87,20 @@
 
     <p>
         <pre class="js-show">
+//
+// 明天日期
+//
+var oneDay = 1 * 86400 * 1000;
+var tomorrow = new Date(new Date().getTime()+oneDay);
+echo( utils.getDate(tomorrow) );</pre>
+        <pre class="display"></pre>
+    </p>
+
+    <p>
+        <pre class="js-show">
+//
+// each object
+//
 var obj = {
     name: 'john',
     birth: new Date(Date.UTC(2000, 12-1, 31, 23, 59, 59)).toISOString(),
@@ -100,6 +114,9 @@ utils.each(obj, function(key, value){
 
     <p>
         <pre class="js-show">
+//
+// each array
+//
 var list = [
     'john',
     '2000-01-01',
