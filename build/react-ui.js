@@ -80,8 +80,8 @@
  *          <InputDate name="birthDate" />
  *
  */
-var sgui = sgui || {};
-sgui.InputDate = React.createClass({
+var ui = ui || {};
+ui.InputDate = React.createClass({
     displayName: 'InputDate',
 
     // TODO: 請分離 state & props
@@ -242,13 +242,13 @@ sgui.InputDate = React.createClass({
             'span',
             null,
             React.createElement('input', { type: 'text', name: this.props.name, ref: 'container', onKeyUp: this.handleKey, maxLength: '10', placeholder: 'yyyy-mm-dd' }),
-            React.createElement(sgui.InputDateComboBox, { data: this.state.combobox, listenChoose: this.handleChoose, ref: 'box' })
+            React.createElement(ui.InputDateComboBox, { data: this.state.combobox, listenChoose: this.handleChoose, ref: 'box' })
         );
     }
 
 });
 
-sgui.InputDateComboBox = React.createClass({
+ui.InputDateComboBox = React.createClass({
     displayName: 'InputDateComboBox',
 
     getInitialState: function getInitialState() {
@@ -349,8 +349,8 @@ sgui.InputDateComboBox = React.createClass({
 });
 'use strict';
 
-var sgui = sgui || {};
-sgui.Pagination = React.createClass({
+var ui = ui || {};
+ui.Pagination = React.createClass({
     displayName: 'Pagination',
 
     propTypes: {
@@ -660,8 +660,8 @@ sgui.Pagination = React.createClass({
 });
 'use strict';
 
-var sgui = sgui || {};
-sgui.TableChoose = React.createClass({
+var ui = ui || {};
+ui.TableChoose = React.createClass({
     displayName: 'TableChoose',
 
     /**
@@ -1028,8 +1028,8 @@ sgui.TableChoose = React.createClass({
 });
 'use strict';
 
-var sgui = sgui || {};
-sgui.TableShow = React.createClass({
+var ui = ui || {};
+ui.TableShow = React.createClass({
     displayName: 'TableShow',
 
     getDefaultProps: function getDefaultProps() {

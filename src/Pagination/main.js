@@ -56,7 +56,7 @@
             return (
                 <section>
                     <nav>
-                        <sgui.Pagination {...this.state.data} listenClick={this.handleClick} />
+                        <ui.Pagination {...this.state.data} listenClick={this.handleClick} />
                     </nav>
                     <p>
                         <button className="btn btn-primary" onClick={this.getData2}>

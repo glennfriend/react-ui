@@ -50,7 +50,7 @@
         render() {
             return (
                 <div>
-                    <sgui.TableChoose {...this.state.table} listenCheck={this.showCheck} ref="myTable" />
+                    <ui.TableChoose {...this.state.table} listenCheck={this.showCheck} ref="myTable" />
 
                     <button className="btn btn-primary" onClick={this.show}>
                         Show Information

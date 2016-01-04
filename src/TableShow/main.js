@@ -50,7 +50,7 @@
         render() {
             return (
                 <div>
-                    <sgui.TableShow
+                    <ui.TableShow
                         {...this.state.table}
                         handleRow={this.rowChange}
                     />

@@ -1,6 +1,6 @@
 {
   "version": "v1.0.0",
-  "bundleName": "react-stargazer",
+  "bundleName": "react-ui",
   "name": "gulp-babel-livereload",
   "devDependencies": {
     "gulp": "^3.9",

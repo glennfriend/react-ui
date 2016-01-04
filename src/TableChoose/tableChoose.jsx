@@ -1,7 +1,7 @@
 'use strict';
 
-let sgui = sgui || {};
-sgui.TableChoose = React.createClass({
+let ui = ui || {};
+ui.TableChoose = React.createClass({
 
     /**
      *  只掛載第一次 (?)

@@ -1,7 +1,7 @@
 'use strict';
 
-let sgui = sgui || {};
-sgui.TableShow = React.createClass({
+let ui = ui || {};
+ui.TableShow = React.createClass({
 
     getDefaultProps: function() {
         return {

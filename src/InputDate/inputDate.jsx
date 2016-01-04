@@ -9,8 +9,8 @@
  *          <InputDate name="birthDate" />
  *
  */
-let sgui = sgui || {};
-sgui.InputDate = React.createClass({
+let ui = ui || {};
+ui.InputDate = React.createClass({
 
     // TODO: 請分離 state & props
     getInitialState() {
@@ -186,7 +186,7 @@ sgui.InputDate = React.createClass({
         return (
             <span>
                 <input type="text" name={this.props.name} ref="container" onKeyUp={this.handleKey} maxLength="10" placeholder="yyyy-mm-dd" />
-                <sgui.InputDateComboBox data={this.state.combobox} listenChoose={this.handleChoose} ref="box" />
+                <ui.InputDateComboBox data={this.state.combobox} listenChoose={this.handleChoose} ref="box" />
             </span>
         );
     },
@@ -197,7 +197,7 @@ sgui.InputDate = React.createClass({
 
 
 
-sgui.InputDateComboBox = React.createClass({
+ui.InputDateComboBox = React.createClass({
 
     getInitialState() {
         return this.getDefault( this.props.data );
